@@ -21,7 +21,6 @@ jobs:
 
     # Timeout: https://stackoverflow.com/a/59076067/4521646
     timeout-minutes: 35
-    filterwarnings: [ignore::DeprecationWarning]
 
     steps:
     - uses: actions/checkout@v2
@@ -62,7 +61,7 @@ jobs:
 
     - name: Tests
       run: |
-        coverage run --source project -m py.test project tests -v --junitxml=junit/test-results-${{ runner.os }}-${{ matrix.python-version }}.xml
+        coverage run --source project -m pytest project tests -v --junitxml=junit/test-results-${{ runner.os }}-${{ matrix.python-version }}.xml -W ignore::DeprecationWarning
 
     - name: Statistics
       if: success()
