@@ -9,7 +9,7 @@ setup(
     author='',
     author_email='',
     # REPLACE WITH YOUR OWN GITHUB PROJECT LINK
-    url='https://github.com/PyTorchLightning/pytorch-lightning-conference-seed',
+    url='https://github.com/sergiuoprea/lot_of_gans',
     install_requires=['pytorch-lightning'],
     packages=find_packages(),
 )
