@@ -1,7 +1,11 @@
+# Pytorc and Lightning
 import torch
-import pytest
+from torch import nn
 from pytorch_lightning import seed_everything
 from project.basic_gan import generator_block
+
+# Testing libs
+import pytest
 
 @pytest.mark.parametrize("in_features,out_features,num_test", [(15,12,1000), (15,18,1000)])
 def test_generator_block(in_features, out_features, num_test):
