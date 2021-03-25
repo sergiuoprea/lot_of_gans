@@ -58,7 +58,7 @@ class Generator(nn.Module):
         Returns:
             tensor: generated image from the input noise (batch_size, im_dim).
         """
-        return self.gen(noise)
+        return self.generator(noise)
     
     def get_gen(self):
         """Getter for the generator
@@ -66,4 +66,4 @@ class Generator(nn.Module):
         Returns:
             nn.Sequential: a sequential model of the generator.
         """
-        return self.gen
+        return self.generator
