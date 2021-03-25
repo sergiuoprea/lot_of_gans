@@ -2,7 +2,7 @@
 import torch
 from torch import nn
 from pytorch_lightning import seed_everything
-from project.basic_gan import generator_block, Generator, discriminator_block
+from project.basic_gan import generator_block, Generator, discriminator_block, Discriminator
 
 # Testing libs
 import pytest
@@ -47,7 +47,7 @@ def test_generator(z_dim, im_dim, hidden_dim, num_test):
     assert test_output.std() > 0.05
     assert test_output.std() < 0.15
 
-@pytest.mark.parametrize("in_features,out_features,num_test"), [(25,12,10000),(15,28,10000)]
+@pytest.mark.parametrize("in_features,out_features,num_test", [(25,12,10000),(15,28,10000)])
 def test_discriminator_block(in_features, out_features, num_test):
     block = discriminator_block(in_features, out_features)
     
@@ -65,3 +65,17 @@ def test_discriminator_block(in_features, out_features, num_test):
     assert -test_output.min() / test_output.max() < 0.3
     assert test_output.std() > 0.3
     assert test_output.std() < 0.5
+
+@pytest.mark.parametrize("z_dim,hidden_dim,num_test", [(5,10,100),(20,8,100)])
+def test_discriminator(z_dim, hidden_dim, num_test):
+    disc = Discriminator(z_dim, hidden_dim).get_disc()
+    
+    assert len(disc) == 4 # We want four blocks in the discriminator
+    
+    test_input = torch.randn(num_test, z_dim)
+    test_output = disc(test_input)
+    assert tuple(test_output.shape) == (num_test, 1)
+    
+    # We don't want a sigmoid here
+    assert test_input.max() > 1
+    assert test_input.min() < -1
