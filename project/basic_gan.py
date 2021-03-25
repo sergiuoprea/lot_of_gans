@@ -4,7 +4,21 @@ from torch import nn
 ########################################################
 #################### DISCRIMINATOR  ####################
 ########################################################
+def discriminator_block(input_dim, output_dim):
+    """Function returning a building block for the discriminator given
+    its input and output dimensions.
 
+    Args:
+        input_dim (int): the dimension of the input vector, a scalar
+        output_dim (int): the dimension of the output vector, a scalar
+
+    Returns:
+        nn.Sequential: a discriminator neural network
+    """
+    return nn.Sequential(
+        nn.Linear(input_dim, output_dim),
+        nn.LeakyReLU(inplace=True, negative_slope=0.2)
+    )
 
 ########################################################
 ###################### GENERATOR  ######################
